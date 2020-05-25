@@ -1,0 +1,50 @@
+{
+    "name": "bce_loss-lambda_10",
+    "seed": 0,
+    "description": "pix2pix",
+    "save_location": "/media/imucs/DataDisk/wangzhiyu/Experiment/Pix2pix/bce_loss",
+    "n_gpu": 1,
+    "use_cudnn": true,
+    "generator_model": {
+        "module": "models.pix2pix_model_sn",
+        "main": "Generator",
+        "args": {}
+    },
+    "discriminator_model": {
+        "module": "models.pix2pix_model_sn",
+        "main": "Discriminator",
+        "args": {}
+    },
+    "loss_function": {
+        "module": "models.loss",
+        "main": "mse_loss",
+        "args": {}
+    },
+    "optimizer": {
+        "lr": 0.0002
+    },
+    "trainer": {
+        "epochs": 1000,
+        "save_period": 10,
+        "validation_period": 10,
+        "additional_loss_factor": 10,
+        "using_range": false
+    },
+    "train_dataset": {
+        "mixture": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/train_138_test_100/train/mixture.pkl",
+        "clean": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/train_138_test_100/train/clean.pkl",
+        "limit": null,
+        "offset": 0,
+        "shuffle": true,
+        "num_workers": 40,
+        "batch_size": 90,
+        "apply_normalization": true
+    },
+    "valid_dataset": {
+        "mixture": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/train_138_test_100/test/mixture.pkl",
+        "clean": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/train_138_test_100/test/clean.pkl",
+        "limit": 20,
+        "offset": 0,
+        "apply_normalization": false
+    }
+}

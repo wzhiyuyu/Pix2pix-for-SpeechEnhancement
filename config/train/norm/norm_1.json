@@ -1,0 +1,73 @@
+{
+    "name": "norm_1",
+    "seed": 0,
+    "description": "pix2pix",
+    "save_location": "/media/imucs/DataDisk/haoxiang/Experiment/Pix2pix-for-Speech-Enhancement/Norm",
+    "n_gpu": 1,
+    "use_cudnn": true,
+    "generator_model": {
+        "module": "models.pix2pix_model_sn",
+        "main": "Generator",
+        "args": {
+            "n_filters_first": 64,
+            "n_downsamplings_blocks": 8
+        }
+    },
+    "discriminator_model": {
+        "module": "models.pix2pix_model_sn",
+        "main": "Discriminator",
+        "args": {
+            "use_bn_in_last_layer": true
+        }
+    },
+    "loss_function": {
+        "module": "models.loss",
+        "main": "mse_loss",
+        "args": {}
+    },
+    "optimizer": {
+        "G_lr": 0.0002,
+        "D_lr": 0.0002,
+        "beta1": 0.5
+    },
+    "trainer": {
+        "epochs": 1000,
+        "save_period": 10,
+        "validation_period": 10,
+        "additional_loss_factor": 20,
+        "adversarial_loss_factor": 1,
+        "soft_label": true,
+        "iter_discriminator_period": 1
+    },
+    "train_dataset": {
+        "module": "data.train_dataset",
+        "main": "TrainDataset",
+        "args": {
+            "mixture_dataset": "/media/imucs/DataDisk/haoxiang/Release/speech_enhancement/Pix2pix/train_138_test_100/train/mixture.pkl",
+            "clean_dataset": "/media/imucs/DataDisk/haoxiang/Release/speech_enhancement/Pix2pix/train_138_test_100/train/clean.pkl",
+            "limit": null,
+            "offset": 0,
+            "apply_normalization": 1
+        }
+    },
+    "validation_dataset": {
+        "module": "data.test_dataset",
+        "main": "TestDataset",
+        "args": {
+            "mixture_dataset": "/media/imucs/DataDisk/haoxiang/Release/speech_enhancement/Pix2pix/train_138_test_100/test/mixture.pkl",
+            "clean_dataset": "/media/imucs/DataDisk/haoxiang/Release/speech_enhancement/Pix2pix/train_138_test_100/test/clean.pkl",
+            "limit": 80,
+            "offset": 0,
+            "apply_normalization": 1
+        }
+    },
+    "train_dataloader": {
+        "shuffle": true,
+        "num_workers": 40,
+        "batch_size": 80
+    },
+    "validation_dataloader": {
+        "num_workers": 40,
+        "batch_size": 40
+    }
+}

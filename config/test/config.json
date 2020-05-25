@@ -1,0 +1,26 @@
+{
+    "name": "lps",
+    "seed": 0,
+    "description": "pix2pix",
+    "save_location": "/media/imucs/DataDisk/wangzhiyu/Experiment/Pix2pix-for-Speech-Enhancement/different_features",
+    "spectrum_type": "log_mel",
+    "model": {
+        "module": "models.pix2pix_model_sn",
+        "main": "Generator",
+        "args": {
+            "n_filters_first": 64,
+            "n_downsamplings_blocks": 8
+        }
+    },
+    "dataset": {
+        "module": "data.log_mel_test_dataset",
+        "main": "TestDataset",
+        "args": {
+            "mixture_dataset": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/20190605_pix2pix_train-284-log-mel_test-67-waveform/test/mixture.pkl",
+            "clean_dataset": "/media/imucs/DataDisk/wangzhiyu/Release/speech_enhancement/Pix2pix/20190605_pix2pix_train-284-log-mel_test-67-waveform/test/clean.pkl",
+            "limit": null,
+            "offset": 0,
+            "apply_normalization": 2
+        }
+    }
+}
